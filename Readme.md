@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Дмитрий Спешилов](https://up.htmlacademy.ru/javascript/14/user/116406).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Ткачук](https://up.htmlacademy.ru/javascript/14/user/450211).
 
 ---
 
