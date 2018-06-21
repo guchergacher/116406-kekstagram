@@ -30,12 +30,14 @@ var getRandomNumber = function (min, max) {
 };
 
 var getData = function (key) {
-  return photos[key] = {
+  photos[key] = {
     url: 'photos/' + (key + 1) + '.jpg',
     likes: getRandomNumber(MIN_LENGTH_LIKES, MAX_LENGTH_LIKES),
     comments: getRandomNumber(0, comments.length - 1),
-    description: getRandomNumber(0, description.length - 1),
+    description: getRandomNumber(0, description.length - 1)
   };
+
+  return photos[key];
 };
 
 var renderPhoto = function (data) {
@@ -79,7 +81,9 @@ var appendPicture = function () {
   }
 
   pictures.appendChild(fragment);
-}();
+};
+
+appendPicture();
 
 var showFullPicture = function () {
   var firstElement = photos[1];
@@ -103,4 +107,6 @@ var showFullPicture = function () {
   commentsLoadmore.classList.add('hidden');
 
   picture.classList.remove('hidden');
-}();
+};
+
+showFullPicture();
