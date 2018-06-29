@@ -29,7 +29,7 @@ var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var getData = function (key) {
+var createPhotoObject = function (key) {
   photos[key] = {
     url: 'photos/' + (key + 1) + '.jpg',
     likes: getRandomNumber(MIN_LENGTH_LIKES, MAX_LENGTH_LIKES),
@@ -55,18 +55,20 @@ var renderPhoto = function (data) {
   return templateClone;
 };
 
-var getCommentsText = function (elLenght) {
-  var commentsText = '';
+var addComments = function (elLenght, parent) {
+  var template = parent.querySelector('.social__comment');
 
   for (var i = 0; i < elLenght; i++) {
-    commentsText += '<li class="social__comment social__comment--text"><img class="social__picture" src="img/avatar-' +
-    getRandomNumber(1, MAX_LENGTH_AVATARS) +
-    '.svg" alt="Аватар комментатора фотографии"width="35" height="35"><p class="social__text">' +
-    comments[i] +
-    '</p></li>';
-  }
+    var templateClone = template.cloneNode(true);
 
-  return commentsText;
+    var photo = templateClone.querySelector('.social__picture');
+    var text = templateClone.querySelector('.social__text');
+
+    photo.setAttribute('src', 'img/avatar-' + getRandomNumber(1, MAX_LENGTH_AVATARS) + '.svg');
+    text.textContent = comments[i];
+
+    parent.appendChild(templateClone);
+  }
 };
 
 var appendPicture = function () {
@@ -74,7 +76,7 @@ var appendPicture = function () {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < PHOTOS_LENGTH; i++) {
-    var photoData = getData(i);
+    var photoData = createPhotoObject(i);
     var photo = renderPhoto(photoData);
 
     fragment.appendChild(photo);
@@ -100,8 +102,9 @@ var showFullPicture = function () {
   photo.setAttribute('src', firstElement.url);
   captionPhoto.textContent = description[firstElement.description];
   likes.textContent = firstElement.likes;
+
   commentsCount.textContent = firstElement.comments;
-  commentsList.innerHTML = getCommentsText(firstElement.comments);
+  addComments(firstElement.comments, commentsList);
 
   commentsWrapper.classList.add('hidden');
   commentsLoadmore.classList.add('hidden');
