@@ -1236,6 +1236,10 @@ main {
   background-position: 0 -105px;
 }
 
+.field-invalid {
+  box-shadow: 0 0 2px 2px red;
+  outline: none;
+}
 
 @media (min-width: 1024px) and (max-width: 1359px) {
   .container {
