@@ -1044,6 +1044,10 @@ main {
         align-items: center;
 }
 
+.social__comment--hide {
+  display: none;
+}
+
 .social__comment-count {
   padding-top: 20px;
   padding-left: 65px;

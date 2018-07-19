@@ -4,9 +4,14 @@
   var MAX_LENGTH_AVATARS = 6;
   var MAX_LENGTH_COMMENTS = 5;
 
-  var photos = window.data.photos;
-  var comments = window.data.comments;
-  var description = window.data.description;
+  var description = [
+    'Тестим новую камеру!',
+    'Затусили с друзьями на море',
+    'Как же круто тут кормят',
+    'Отдыхаем...',
+    'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
+    'Вот это тачка!'
+  ];
 
   var popupPictureFull = document.querySelector('.big-picture');
   var popupPictureFullBtnClose = popupPictureFull.querySelector('.big-picture__cancel');
@@ -25,33 +30,44 @@
     window.utils.onEscPress(evt, closePopup);
   };
 
-  var addComments = function (elLenght, parent) {
+  var addComments = function (comments, parent) {
     var template = parent.querySelector('.social__comment:first-child');
     parent.innerHTML = '';
 
-    for (var i = 0; i < elLenght; i++) {
+    comments.forEach(function (item, i) {
       var templateClone = template.cloneNode(true);
 
       var photo = templateClone.querySelector('.social__picture');
       var text = templateClone.querySelector('.social__text');
 
+      if (i >= MAX_LENGTH_COMMENTS) {
+        templateClone.classList.add('social__comment--hide');
+      }
+
       photo.setAttribute('src', 'img/avatar-' + window.utils.getRandomNumber(1, MAX_LENGTH_AVATARS) + '.svg');
-      text.textContent = comments[i];
+      text.textContent = item;
 
       parent.appendChild(templateClone);
-    }
+    });
   };
 
-  var countComments = function (commentsList, commentsWrapper, photoId) {
+  var countComments = function (list, wrapper, length) {
+    var commentsLoadmore = popupPictureFull.querySelector('.social__loadmore');
     var commentsCount = 0;
 
-    if (photos[photoId].comments < MAX_LENGTH_COMMENTS && photos[photoId].comments !== 0) {
-      commentsCount = photos[photoId].comments;
-    } else if (photos[photoId].comments === commentsCount) {
-      commentsList.classList.add('hidden');
-      commentsWrapper.classList.add('hidden');
-    } else {
+    if (length > MAX_LENGTH_COMMENTS) {
       commentsCount = MAX_LENGTH_COMMENTS;
+      commentsLoadmore.classList.remove('hidden');
+    } else if (length < MAX_LENGTH_COMMENTS && length !== 0) {
+      commentsCount = length;
+      commentsLoadmore.classList.add('hidden');
+    } else if (length === MAX_LENGTH_COMMENTS) {
+      commentsCount = MAX_LENGTH_COMMENTS;
+      commentsLoadmore.classList.add('hidden');
+    } else {
+      list.classList.add('hidden');
+      wrapper.classList.add('hidden');
+      commentsLoadmore.classList.add('hidden');
     }
 
     return commentsCount;
@@ -65,7 +81,7 @@
     closePopup();
   });
 
-  window.preview = function (elem) {
+  window.preview = function (elem, photos) {
     var target = elem.target.closest('.picture__link');
 
     if (target) {
@@ -74,18 +90,18 @@
       var photo = popupPictureFull.querySelector('.big-picture__img img');
       var captionPhoto = popupPictureFull.querySelector('.social__caption');
       var likes = popupPictureFull.querySelector('.likes-count');
-      var commentsWrapper = popupPictureFull.querySelector('.social__comment-count');
-      var commentsLoadmore = popupPictureFull.querySelector('.social__loadmore');
       var commentsList = popupPictureFull.querySelector('.social__comments');
+      var commentsWrapper = popupPictureFull.querySelector('.social__comment-count');
+
+      var commentsLength = photos[photoId].comments.length;
+      var descriptionId = window.utils.getRandomNumber(0, description.length - 1);
 
       photo.setAttribute('src', photos[photoId].url);
       likes.textContent = photos[photoId].likes;
-      captionPhoto.textContent = description[photos[photoId].description];
-      commentsWrapper.textContent = countComments(commentsList, commentsWrapper, photoId) + ' из ' + photos[photoId].comments + ' комментариев';
+      captionPhoto.textContent = description[descriptionId];
+      commentsWrapper.textContent = countComments(commentsList, commentsWrapper, commentsLength) + ' из ' + commentsLength + ' комментариев';
 
       addComments(photos[photoId].comments, commentsList);
-
-      commentsLoadmore.classList.add('hidden');
 
       openPopup();
 
