@@ -5,7 +5,7 @@
   var STATUS_OK = 200;
   var SERVER_TIMEOUT = 10000;
 
-  var messages = {
+  var Messages = {
     'unknown': 'Неизвестный статус: ',
     'connect': 'Произошла ошибка соединения',
     'time': 'Запрос не успел выполниться за ',
@@ -21,16 +21,16 @@
       if (xhr.status === STATUS_OK) {
         onLoad(xhr.response);
       } else {
-        onError(messages.unknown + xhr.status + ' ' + xhr.statusText);
+        onError(Messages.unknown + xhr.status + ' ' + xhr.statusText);
       }
     });
 
     xhr.addEventListener('error', function () {
-      onError(messages.connect);
+      onError(Messages.connect);
     });
 
     xhr.addEventListener('timeout', function () {
-      onError(messages.time + xhr.timeout + 'мс');
+      onError(Messages.time + xhr.timeout + 'мс');
     });
 
     xhr.timeout = SERVER_TIMEOUT;
@@ -58,7 +58,7 @@
     },
 
     showSuccess: function () {
-      window.utils.showMessage(messages.ok);
+      window.utils.showMessage(Messages.ok);
     }
   };
 })();
