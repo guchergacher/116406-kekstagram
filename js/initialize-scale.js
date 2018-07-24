@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var resizeElements = {
+  var ResizeElements = {
     input: 'resize__control--value',
     minus: 'resize__control--minus',
     plus: 'resize__control--plus',
@@ -11,15 +11,15 @@
   };
 
   window.initializeScale = function (uploadImageResize, setScale) {
-    var controlValue = uploadImageResize.querySelector('.' + resizeElements.input);
+    var controlValue = uploadImageResize.querySelector('.' + ResizeElements.input);
 
     var calcScale = function (target) {
       var value = parseInt(controlValue.value, 10);
 
-      if (target.classList.contains(resizeElements.minus) && value > resizeElements.min) {
-        value -= resizeElements.step;
-      } else if (target.classList.contains(resizeElements.plus) && value < resizeElements.max) {
-        value += resizeElements.step;
+      if (target.classList.contains(ResizeElements.minus) && value > ResizeElements.min) {
+        value -= ResizeElements.step;
+      } else if (target.classList.contains(ResizeElements.plus) && value < ResizeElements.max) {
+        value += ResizeElements.step;
       }
 
       if (value !== parseInt(controlValue.value, 10)) {
@@ -31,7 +31,7 @@
     uploadImageResize.addEventListener('click', function (evt) {
       var target = evt.target;
 
-      if (!target.classList.contains(resizeElements.minus) && !target.classList.contains(resizeElements.plus)) {
+      if (!target.classList.contains(ResizeElements.minus) && !target.classList.contains(ResizeElements.plus)) {
         return;
       }
 

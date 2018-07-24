@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var TIME_INTERVAL = 3000;
   var DEBOUNCE_INTERVAL = 500;
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
@@ -66,7 +67,7 @@
 
       setTimeout(function () {
         templateClone.classList.add('hidden');
-      }, 3000);
+      }, TIME_INTERVAL);
     }
   };
 })();

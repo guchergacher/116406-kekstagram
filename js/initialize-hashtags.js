@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_HASHTAG_LENGTH = 20;
+
   var hashtagsList = [
     '- Хэш-тег начинается с символа `#` (решётка) и состоит из одного слова;\n',
     '- Хэш-теги разделяются пробелами;\n',
@@ -37,7 +39,7 @@
     });
 
     var valueLengthHash = hashtags.every(function (hashtag) {
-      return hashtag.length <= 20;
+      return hashtag.length <= MAX_HASHTAG_LENGTH;
     });
 
     if (!beginsSymbolHash) {

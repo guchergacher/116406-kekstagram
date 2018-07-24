@@ -58,11 +58,12 @@
     }
 
     var activeButton = imgFilters.querySelector('.img-filters__button--active');
+    var newPhotos = copyPhotos.slice();
 
     if (element.id === 'filter-discussed') {
-      photos = sortComments(photos);
+      photos = sortComments(newPhotos);
     } else if (element.id === 'filter-new') {
-      photos = sortRandomize(photos);
+      photos = sortRandomize(newPhotos);
     } else {
       photos = copyPhotos;
     }
