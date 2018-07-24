@@ -4,7 +4,7 @@
   var MAX_LENGTH_AVATARS = 6;
   var MAX_LENGTH_COMMENTS = 5;
 
-  var description = [
+  var DESCRIPTION = [
     'Тестим новую камеру!',
     'Затусили с друзьями на море',
     'Как же круто тут кормят',
@@ -14,7 +14,7 @@
   ];
 
   var popupPictureFull = document.querySelector('.big-picture');
-  var popupPictureFullBtnClose = popupPictureFull.querySelector('.big-picture__cancel');
+  var popupPictureFullButtonClose = popupPictureFull.querySelector('.big-picture__cancel');
 
   var closePopup = function () {
     window.utils.closePopup(popupPictureFull);
@@ -73,11 +73,11 @@
     return commentsCount;
   };
 
-  popupPictureFullBtnClose.addEventListener('keydown', function (evt) {
+  popupPictureFullButtonClose.addEventListener('keydown', function (evt) {
     window.utils.onEnterPress(evt, closePopup);
   });
 
-  popupPictureFullBtnClose.addEventListener('click', function () {
+  popupPictureFullButtonClose.addEventListener('click', function () {
     closePopup();
   });
 
@@ -94,11 +94,11 @@
       var commentsWrapper = popupPictureFull.querySelector('.social__comment-count');
 
       var commentsLength = photos[photoId].comments.length;
-      var descriptionId = window.utils.getRandomNumber(0, description.length - 1);
+      var descriptionId = window.utils.getRandomNumber(0, DESCRIPTION.length - 1);
 
       photo.setAttribute('src', photos[photoId].url);
       likes.textContent = photos[photoId].likes;
-      captionPhoto.textContent = description[descriptionId];
+      captionPhoto.textContent = DESCRIPTION[descriptionId];
       commentsWrapper.textContent = countComments(commentsList, commentsWrapper, commentsLength) + ' из ' + commentsLength + ' комментариев';
 
       addComments(photos[photoId].comments, commentsList);

@@ -4,7 +4,7 @@
   var FILTER_BLUR = 20;
   var FILTER_BRIGHT = 33.33;
 
-  var filterValues = {
+  var FilterValues = {
     'chrome': 1,
     'sepia': 1,
     'marvin': 100,
@@ -64,7 +64,7 @@
       if (effectName === 'none') {
         slider.classList.add('hidden');
       } else {
-        setValueSlider(filterValues[effectName], '100%');
+        setValueSlider(FilterValues[effectName], '100%');
         slider.classList.remove('hidden');
       }
 
